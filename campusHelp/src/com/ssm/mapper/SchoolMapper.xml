@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ssm.mapper.SchoolMapper" >
+  <resultMap id="BaseResultMap" type="com.ssm.po.School" >
+    <id column="schoolid" property="schoolid" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="addtime" property="addtime" jdbcType="TIMESTAMP" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    schoolid, name, addtime, state
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from school
+    where schoolid = #{schoolid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from school
+    where schoolid = #{schoolid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ssm.po.School" >
+    insert into school (schoolid, name, addtime, 
+      state)
+    values (#{schoolid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP}, 
+      #{state,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ssm.po.School" >
+    insert into school
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="schoolid != null" >
+        schoolid,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="addtime != null" >
+        addtime,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="schoolid != null" >
+        #{schoolid,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null" >
+        #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ssm.po.School" >
+    update school
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null" >
+        addtime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+    </set>
+    where schoolid = #{schoolid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ssm.po.School" >
+    update school
+    set name = #{name,jdbcType=VARCHAR},
+      addtime = #{addtime,jdbcType=TIMESTAMP},
+      state = #{state,jdbcType=INTEGER}
+    where schoolid = #{schoolid,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 查找全部 -->
+  <select id="selectAllSchools" resultMap="BaseResultMap" >
+    SELECT <include refid="Base_Column_List" /> FROM `school` 
+  </select>
+  
+  <!-- 查找全部不含限制的 -->
+  <select id="selectAllSchoolsNoState" resultMap="BaseResultMap" >
+    SELECT <include refid="Base_Column_List" /> FROM `school` where state = 0
+  </select>
+  
+</mapper>

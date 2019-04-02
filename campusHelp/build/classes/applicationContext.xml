@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+	http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop/spring-aop-3.0.xsd 
+	http://www.springframework.org/schema/tx  
+	http://www.springframework.org/schema/tx/spring-tx-3.0.xsd 
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+    <!-- 通过注解生成对象 业务层对象 -->
+	<!--  <context:component-scan base-package="com.ssm.service"></context:component-scan>-->
+
+
+	<!-- 数据源配置 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://yourIp:3306/campushelp" />
+		<property name="username" value="yourName" />
+		<property name="password" value="yourPassword" />
+	</bean>
+
+	<!-- 创建SqlSessionFactory实例 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!--dataSource属性指定要用到的数据源 -->
+		<property name="dataSource" ref="dataSource" />
+		<!--configLocation属性指定mybatis的主配置文件 -->
+		<!--  <property name="configLocation" value="classpath:mybatis-config.xml" />-->
+		
+		<property name="plugins">
+			<array>
+				<bean class="com.github.pagehelper.PageHelper">
+					<property name="properties">
+						<value>
+							dialect=mysql
+							reasonable=true
+						</value>
+					</property>
+				</bean>
+			</array>
+		</property>
+		
+	</bean>
+
+	<!-- 映射接口 basePackage指定要扫描的包，此包及其子包之下的映射器接口 都会被搜索到,创建Mapper对象 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.ssm.mapper"></property>
+	</bean>
+
+	<!-- 事务配置 -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+
+	<!-- 配置事务的传播特性 -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<!-- 传播属性-REQUIRED支持当前事务，如果当前没有事务，就新建一个事务  -->
+			<tx:method name="find*" read-only="true" />
+			<tx:method name="get*" read-only="true" />
+			<tx:method name="query*" read-only="true" />
+			<tx:method name="add*" propagation="REQUIRED" />
+			<tx:method name="update*" propagation="REQUIRED" />
+			<tx:method name="del*" propagation="REQUIRED" />
+		</tx:attributes>
+	</tx:advice>
+
+	<!-- 配置参与事务的类 -->
+	<aop:config>
+		<!--pointcut元素定义一个切入点，execution()是最常用的切点函数， 其中的第一个星号用以匹配方法的返回类型，这里星号表明匹配所有返回类型。 
+			com.ssm.service.*.*(..)表明匹配com.ssm.service包下的所有类的所有方法， ..代表方法参数可以是任意的，包括0个。 -->
+		<aop:pointcut id="myPointcut" expression="execution(public * com.ssm.service.impl.*.*(..))"/>
+		<!--将定义好的事务处理策略应用到上述的切入点 -->
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="myPointcut" />
+	</aop:config>
+
+</beans>	

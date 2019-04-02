@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ssm.mapper.TaskMapper" >
+  <resultMap id="BaseResultMap" type="com.ssm.po.Task" >
+    <id column="taskid" property="taskid" jdbcType="INTEGER" />
+    <result column="publish_user_id" property="publishUserId" jdbcType="VARCHAR" />
+    <result column="publish_user_name" property="publishUserName" jdbcType="VARCHAR" />
+    <result column="publish_school_id" property="publishSchoolId" jdbcType="INTEGER" />
+    <result column="accept_user_id" property="acceptUserId" jdbcType="INTEGER" />
+    <result column="reward" property="reward" jdbcType="DOUBLE" />
+    <result column="addtime" property="addtime" jdbcType="TIMESTAMP" />
+    <result column="endtime" property="endtime" jdbcType="TIMESTAMP" />
+    <result column="taskname" property="taskname" jdbcType="VARCHAR" />
+    <result column="taskcontext" property="taskcontext" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    taskid, publish_user_id, publish_user_name, publish_school_id, accept_user_id, reward, 
+    addtime, endtime, taskname, taskcontext, state
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from task
+    where taskid = #{taskid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from task
+    where taskid = #{taskid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ssm.po.Task" >
+    insert into task (taskid, publish_user_id, publish_user_name, 
+      publish_school_id, accept_user_id, reward, 
+      addtime, endtime, taskname, 
+      taskcontext, state)
+    values (#{taskid,jdbcType=INTEGER}, #{publishUserId,jdbcType=VARCHAR}, #{publishUserName,jdbcType=VARCHAR}, 
+      #{publishSchoolId,jdbcType=INTEGER}, #{acceptUserId,jdbcType=INTEGER}, #{reward,jdbcType=DOUBLE}, 
+      #{addtime,jdbcType=TIMESTAMP}, #{endtime,jdbcType=TIMESTAMP}, #{taskname,jdbcType=VARCHAR}, 
+      #{taskcontext,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ssm.po.Task" >
+    insert into task
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="taskid != null" >
+        taskid,
+      </if>
+      <if test="publishUserId != null" >
+        publish_user_id,
+      </if>
+      <if test="publishUserName != null" >
+        publish_user_name,
+      </if>
+      <if test="publishSchoolId != null" >
+        publish_school_id,
+      </if>
+      <if test="acceptUserId != null" >
+        accept_user_id,
+      </if>
+      <if test="reward != null" >
+        reward,
+      </if>
+      <if test="addtime != null" >
+        addtime,
+      </if>
+      <if test="endtime != null" >
+        endtime,
+      </if>
+      <if test="taskname != null" >
+        taskname,
+      </if>
+      <if test="taskcontext != null" >
+        taskcontext,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="taskid != null" >
+        #{taskid,jdbcType=INTEGER},
+      </if>
+      <if test="publishUserId != null" >
+        #{publishUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="publishUserName != null" >
+        #{publishUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="publishSchoolId != null" >
+        #{publishSchoolId,jdbcType=INTEGER},
+      </if>
+      <if test="acceptUserId != null" >
+        #{acceptUserId,jdbcType=INTEGER},
+      </if>
+      <if test="reward != null" >
+        #{reward,jdbcType=DOUBLE},
+      </if>
+      <if test="addtime != null" >
+        #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null" >
+        #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="taskname != null" >
+        #{taskname,jdbcType=VARCHAR},
+      </if>
+      <if test="taskcontext != null" >
+        #{taskcontext,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ssm.po.Task" >
+    update task
+    <set >
+      <if test="publishUserId != null" >
+        publish_user_id = #{publishUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="publishUserName != null" >
+        publish_user_name = #{publishUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="publishSchoolId != null" >
+        publish_school_id = #{publishSchoolId,jdbcType=INTEGER},
+      </if>
+      <if test="acceptUserId != null" >
+        accept_user_id = #{acceptUserId,jdbcType=INTEGER},
+      </if>
+      <if test="reward != null" >
+        reward = #{reward,jdbcType=DOUBLE},
+      </if>
+      <if test="addtime != null" >
+        addtime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null" >
+        endtime = #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="taskname != null" >
+        taskname = #{taskname,jdbcType=VARCHAR},
+      </if>
+      <if test="taskcontext != null" >
+        taskcontext = #{taskcontext,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+    </set>
+    where taskid = #{taskid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ssm.po.Task" >
+    update task
+    set publish_user_id = #{publishUserId,jdbcType=VARCHAR},
+      publish_user_name = #{publishUserName,jdbcType=VARCHAR},
+      publish_school_id = #{publishSchoolId,jdbcType=INTEGER},
+      accept_user_id = #{acceptUserId,jdbcType=INTEGER},
+      reward = #{reward,jdbcType=DOUBLE},
+      addtime = #{addtime,jdbcType=TIMESTAMP},
+      endtime = #{endtime,jdbcType=TIMESTAMP},
+      taskname = #{taskname,jdbcType=VARCHAR},
+      taskcontext = #{taskcontext,jdbcType=VARCHAR},
+      state = #{state,jdbcType=INTEGER}
+    where taskid = #{taskid,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 查找全部任务 -->
+  <select id="selectAllTask" resultMap="BaseResultMap" >
+    SELECT <include refid="Base_Column_List" /> FROM `task` where state=0 ORDER BY addtime DESC
+  </select>
+  
+  <!-- 查找用户发布全部任务 -->
+  <select id="selectUserTask" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from task
+    where publish_user_id = #{stuid,jdbcType=INTEGER} ORDER BY addtime DESC
+  </select>
+  
+  <!-- 查找用户接受的任务 -->
+  <select id="selectUserATask" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from task
+    where accept_user_id = #{stuid,jdbcType=INTEGER} ORDER BY endtime DESC
+  </select>
+  
+  <select id="selectTaskByKeys" resultMap="BaseResultMap">
+		SELECT t.* FROM task t LEFT JOIN `user` u ON t.publish_user_id = u.stuid  
+		<where>
+			<if test="words!=null and words!=''">
+				and t.taskname like #{words}
+			</if>
+			<if test="schoolid!=null and schoolid!='-1'">
+				and u.schoolid = #{schoolid,jdbcType=INTEGER}
+			</if>
+		</where>
+		
+		ORDER BY t.addtime DESC
+	</select>
+	
+	<select id="selectTaskByKeysNoState" resultMap="BaseResultMap">
+		SELECT t.* FROM task t LEFT JOIN `user` u ON t.publish_user_id = u.stuid  
+		<where>
+			t.state=0
+			<if test="words!=null and words!=''">
+				and t.taskname like #{words}
+			</if>
+			<if test="schoolid!=null and schoolid!='-1'">
+				and u.schoolid = #{schoolid,jdbcType=INTEGER}
+			</if>
+		</where>
+		
+		ORDER BY t.addtime DESC
+	</select>
+</mapper>

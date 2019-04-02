@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ssm.mapper.AdminMapper" >
+  <resultMap id="BaseResultMap" type="com.ssm.po.Admin" >
+    <id column="aid" property="aid" jdbcType="INTEGER" />
+    <result column="account" property="account" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="addtime" property="addtime" jdbcType="TIMESTAMP" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    aid, account, password, name, addtime, state
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from admin
+    where aid = #{aid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from admin
+    where aid = #{aid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ssm.po.Admin" >
+    insert into admin (aid, account, password, 
+      name, addtime, state
+      )
+    values (#{aid,jdbcType=INTEGER}, #{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP}, #{state,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ssm.po.Admin" >
+    insert into admin
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="aid != null" >
+        aid,
+      </if>
+      <if test="account != null" >
+        account,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="addtime != null" >
+        addtime,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="aid != null" >
+        #{aid,jdbcType=INTEGER},
+      </if>
+      <if test="account != null" >
+        #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null" >
+        #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ssm.po.Admin" >
+    update admin
+    <set >
+      <if test="account != null" >
+        account = #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null" >
+        addtime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+    </set>
+    where aid = #{aid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ssm.po.Admin" >
+    update admin
+    set account = #{account,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      addtime = #{addtime,jdbcType=TIMESTAMP},
+      state = #{state,jdbcType=INTEGER}
+    where aid = #{aid,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 查找账号个数  添加管理员检查账号重复 -->
+  <select id="selectAccountCount" resultType="java.lang.Integer" >
+    SELECT COUNT(*) FROM `admin` WHERE account = #{account,jdbcType=VARCHAR};
+  </select>
+  
+  <!-- 根据账号查找返回admin  登录时根据账号获取该帐号信息 -->
+  <select id="selectAdminByAccount" resultMap="BaseResultMap" >
+    SELECT <include refid="Base_Column_List" /> FROM `admin` WHERE account = #{account,jdbcType=VARCHAR};
+  </select>
+  
+</mapper>

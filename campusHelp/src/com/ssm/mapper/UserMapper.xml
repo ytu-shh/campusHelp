@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ssm.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.ssm.po.User" >
+    <id column="stuid" property="stuid" jdbcType="INTEGER" />
+    <result column="studentid" property="studentid" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="schoolid" property="schoolid" jdbcType="INTEGER" />
+    <result column="sex" property="sex" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="registertime" property="registertime" jdbcType="TIMESTAMP" />
+    <result column="money" property="money" jdbcType="DOUBLE" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    stuid, studentid, password, schoolid, sex, name, registertime, money, state
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where stuid = #{stuid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user
+    where stuid = #{stuid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ssm.po.User" >
+    insert into user (stuid, studentid, password, 
+      schoolid, sex, name, 
+      registertime, money, state
+      )
+    values (#{stuid,jdbcType=INTEGER}, #{studentid,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{schoolid,jdbcType=INTEGER}, #{sex,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{registertime,jdbcType=TIMESTAMP}, #{money,jdbcType=DOUBLE}, #{state,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ssm.po.User" >
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="stuid != null" >
+        stuid,
+      </if>
+      <if test="studentid != null" >
+        studentid,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="schoolid != null" >
+        schoolid,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="registertime != null" >
+        registertime,
+      </if>
+      <if test="money != null" >
+        money,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="stuid != null" >
+        #{stuid,jdbcType=INTEGER},
+      </if>
+      <if test="studentid != null" >
+        #{studentid,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolid != null" >
+        #{schoolid,jdbcType=INTEGER},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="registertime != null" >
+        #{registertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="money != null" >
+        #{money,jdbcType=DOUBLE},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ssm.po.User" >
+    update user
+    <set >
+      <if test="studentid != null" >
+        studentid = #{studentid,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolid != null" >
+        schoolid = #{schoolid,jdbcType=INTEGER},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="registertime != null" >
+        registertime = #{registertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="money != null" >
+        money = #{money,jdbcType=DOUBLE},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+    </set>
+    where stuid = #{stuid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ssm.po.User" >
+    update user
+    set studentid = #{studentid,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      schoolid = #{schoolid,jdbcType=INTEGER},
+      sex = #{sex,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      registertime = #{registertime,jdbcType=TIMESTAMP},
+      money = #{money,jdbcType=DOUBLE},
+      state = #{state,jdbcType=INTEGER}
+    where stuid = #{stuid,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 根据账号或昵称查找返回user -->
+  <select id="selectByLikeNameAccount" resultMap="BaseResultMap" >
+    SELECT 
+    <include refid="Base_Column_List" /> 
+    from `user` WHERE CONCAT(studentid,name) LIKE #{words,jdbcType=VARCHAR} 
+  </select>
+  
+  <!-- 查找账号个数 -->
+  <select id="selectAccountCount" resultType="java.lang.Integer" >
+    SELECT COUNT(*) FROM `user` WHERE studentid = #{account,jdbcType=VARCHAR};
+  </select>
+  
+  <!-- 根据账号查找返回user -->
+  <select id="selectUserByAccount" resultMap="BaseResultMap" >
+    SELECT <include refid="Base_Column_List" /> FROM `user` WHERE studentid = #{account,jdbcType=VARCHAR};
+  </select>
+  
+</mapper>
