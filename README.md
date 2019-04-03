@@ -16,3 +16,10 @@ jdk1.8+tomcat8.5+mysql5.7
 	</bean>  
 ```
   放入tomcat运行即可  
+## 效果展示
+![Image text](https://raw.githubusercontent.com/shh2lm/campusHelp/master/img-folder/1.png)
+![Image text](https://raw.githubusercontent.com/shh2lm/campusHelp/master/img-folder/2.png)
+![Image text](https://raw.githubusercontent.com/shh2lm/campusHelp/master/img-folder/3.png)
+![Image text](https://raw.githubusercontent.com/shh2lm/campusHelp/master/img-folder/4.png)
+![Image text](https://raw.githubusercontent.com/shh2lm/campusHelp/master/img-folder/5.png)
+![Image text](https://raw.githubusercontent.com/shh2lm/campusHelp/master/img-folder/6.png)
