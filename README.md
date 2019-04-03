@@ -1,9 +1,9 @@
 # campusHelp
 校园帮项目
 校园即时服务平台
-##开发环境
+## 开发环境
 jdk1.8+tomcat8.5+mysql5.7
-##开始使用
+## 开始使用
 数据库放在/campusHelp/WebContent/db/campushelp.sql
 将项目导入eclipse后
 修改文件/campusHelp/src/applicationContext.xml
