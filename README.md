@@ -16,6 +16,7 @@ jdk1.8+tomcat8.5+mysql5.7
 	</bean>  
 ```
   放入tomcat运行即可  
+##关注公众号【HelloWeb烟梦网络】留言问题，及时为你解答。
 ## 效果展示
 ![Image text](https://raw.githubusercontent.com/shh2lm/campusHelp/master/img-folder/1.png)
 ![Image text](https://raw.githubusercontent.com/shh2lm/campusHelp/master/img-folder/2.png)
