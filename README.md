@@ -23,3 +23,5 @@ jdk1.8+tomcat8.5+mysql5.7
 ![Image text](https://raw.githubusercontent.com/shh2lm/campusHelp/master/img-folder/4.png)
 ![Image text](https://raw.githubusercontent.com/shh2lm/campusHelp/master/img-folder/5.png)
 ![Image text](https://raw.githubusercontent.com/shh2lm/campusHelp/master/img-folder/6.png)
+## 其他毕业设计项目
+智能家居：https://github.com/ytu-shh/smartHome
