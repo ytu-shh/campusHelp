@@ -147,8 +147,9 @@
 		</div>
 
 		<c:if test="${!empty msg }">
+			<div id="msg-container" style="display:none;"><c:out value="${msg}"/></div>
 			<script type="text/javascript">
-				alert("${msg }");
+				alert(document.getElementById('msg-container').textContent);
 			</script>
 		</c:if>
 
