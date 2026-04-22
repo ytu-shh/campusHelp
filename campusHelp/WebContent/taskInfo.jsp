@@ -67,15 +67,15 @@
 						<tbody>
 							<tr>
 								<td>任务标题</td>
-								<td>${theTask.taskname }</td>
+								<td><c:out value="${theTask.taskname}"/></td>
 							</tr>
 							<tr>
 								<td>详细描述</td>
-								<td>${theTask.taskcontext }</td>
+								<td><c:out value="${theTask.taskcontext}"/></td>
 							</tr>
 							<tr>
 								<td>发布者</td>
-								<td>${theTask.publishUserName }</td>
+								<td><c:out value="${theTask.publishUserName}"/></td>
 							</tr>
 							<tr>
 								<td>奖励</td>
@@ -113,8 +113,9 @@
 	</div>
 
 	<c:if test="${!empty msg }">
+		<div id="msg-container" style="display:none;"><c:out value="${msg}"/></div>
 		<script type="text/javascript">
-			alert("${msg }");
+			alert(document.getElementById('msg-container').textContent);
 		</script>
 	</c:if>
 	<script src="${pageContext.request.contextPath }/layui/layui.all.js"></script>
