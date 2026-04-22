@@ -115,7 +115,7 @@
 
 	<c:if test="${!empty msg }">
 		<script type="text/javascript">
-			var msg = '<c:out value="${fn:escapeXml(msg)}"/>';
+			var msg = "${fn:escapeXml(msg)}";
 			alert(msg);
 		</script>
 	</c:if>
