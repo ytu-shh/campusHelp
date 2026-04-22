@@ -6,6 +6,7 @@
 %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
@@ -113,9 +114,10 @@
 	</div>
 
 	<c:if test="${!empty msg }">
-		<div id="msg-container" style="display:none;"><c:out value="${msg}"/></div>
+		<span id="escaped-msg" style="display:none;">${fn:escapeXml(msg)}</span>
 		<script type="text/javascript">
-			alert(document.getElementById('msg-container').textContent);
+			var msgContainer = document.getElementById('escaped-msg');
+			alert(msgContainer.textContent || msgContainer.innerText);
 		</script>
 	</c:if>
 	<script src="${pageContext.request.contextPath }/layui/layui.all.js"></script>
