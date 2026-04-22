@@ -6,6 +6,7 @@
 %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
@@ -148,7 +149,7 @@
 								<div style="margin-left: 30px;margin-right: 30px;margin-top: 10px;margin-bottom: 30px;">
 									<a onclick="getAuser(${task.publishUserId })" class="layui-btn layui-btn-sm layui-btn-primary layui-btn-radius">查看发布者信息</a>
 									<c:if test="${task.state==0 }">
-										<a href="admin/taskclose.do?words=<c:out value='${words}'/>&schoolidstr=<c:out value='${schoolidstr}'/>&tidstr=${task.taskid }" class="layui-btn layui-btn-sm layui-btn-primary layui-btn-radius">取消该任务</a>
+										<a href="admin/taskclose.do?words=${words}&schoolidstr=${schoolidstr}&tidstr=${task.taskid }" class="layui-btn layui-btn-sm layui-btn-primary layui-btn-radius">取消该任务</a>
 									</c:if>
 									<c:if test="${task.state==1 }">
 										<button class="layui-btn layui-btn-sm layui-btn-disabled layui-btn-radius">任务已关闭</button>
@@ -174,9 +175,9 @@
 		</div>
 
 		<c:if test="${!empty msg }">
-			<div id="msg-container" style="display:none;"><c:out value="${msg}"/></div>
 			<script type="text/javascript">
-				alert(document.getElementById('msg-container').textContent);
+				var msg = '<c:out value="${fn:escapeXml(msg)}"/>';
+				alert(msg);
 			</script>
 		</c:if>
 

@@ -3,6 +3,7 @@ package com.ssm.controller;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.net.URLEncoder;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -171,18 +172,36 @@ public class AdminController {
 	@RequestMapping("gettasks.do")
 	public String gettasks(String words, @RequestParam(required = true, defaultValue = "-1") String schoolidstr,
 			Model model) {
+		try {
+			if (words != null) {
+				words = URLEncoder.encode(words, "UTF-8");
+			}
+			if (schoolidstr != null) {
+				schoolidstr = URLEncoder.encode(schoolidstr, "UTF-8");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		model.addAttribute("words", words);
 		model.addAttribute("schoolidstr", schoolidstr);
 		int schoolid = -1;
-		if (!schoolidstr.equals("-1")) {
+		if (!"-1".equals(schoolidstr)) {
 			try {
-				schoolid = Integer.parseInt(schoolidstr);
+				// 解码后再转换
+				String decodedSchoolId = java.net.URLDecoder.decode(schoolidstr, "UTF-8");
+				schoolid = Integer.parseInt(decodedSchoolId);
 			} catch (Exception e) {
 				System.err.println("err");
 			}
 		}
 		if (words != null) {
-			words = "%" + words + "%";
+			try {
+				// 解码后再添加通配符
+				String decodedWords = java.net.URLDecoder.decode(words, "UTF-8");
+				words = "%" + decodedWords + "%";
+			} catch (Exception e) {
+				words = "%%";
+			}
 		} else {
 			words = "%%";
 		}
@@ -237,9 +256,22 @@ public class AdminController {
 	// 获取用户信息
 	@RequestMapping("getusers.do")
 	public String getusers(String userstr, Model model) {
+		try {
+			if (userstr != null) {
+				userstr = URLEncoder.encode(userstr, "UTF-8");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		model.addAttribute("keys", userstr);
 		if (userstr != null) {
-			userstr = "%" + userstr + "%";
+			try {
+				// 解码后再添加通配符
+				String decodedUserstr = java.net.URLDecoder.decode(userstr, "UTF-8");
+				userstr = "%" + decodedUserstr + "%";
+			} catch (Exception e) {
+				userstr = "%%";
+			}
 		} else {
 			userstr = "%%";
 		}

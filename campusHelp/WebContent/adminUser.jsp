@@ -6,6 +6,7 @@
 %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
@@ -132,10 +133,10 @@
 								</div>
 								<div style="margin-left: 30px;margin-right: 30px;margin-top: 10px;margin-bottom: 30px;">
 									<c:if test="${user.state==0 }">
-										<a href="admin/userclose.do?keys=<c:out value='${keys}'/>&stuidstr=${user.stuid }" class="layui-btn layui-btn-sm layui-btn-primary layui-btn-radius">限制该用户状态</a>
+										<a href="admin/userclose.do?keys=${keys}&stuidstr=${user.stuid }" class="layui-btn layui-btn-sm layui-btn-primary layui-btn-radius">限制该用户状态</a>
 									</c:if>
 									<c:if test="${user.state!=0 }">
-										<a href="admin/useropen.do?keys=<c:out value='${keys}'/>&stuidstr=${user.stuid }" class="layui-btn layui-btn-sm layui-btn-primary layui-btn-radius">解除限制</a>
+										<a href="admin/useropen.do?keys=${keys}&stuidstr=${user.stuid }" class="layui-btn layui-btn-sm layui-btn-primary layui-btn-radius">解除限制</a>
 									</c:if>
 									<a onclick="addMoney(${user.stuid })" class="layui-btn layui-btn-sm layui-btn-primary layui-btn-radius">用户信息及余额操作</a>
 								</div>
@@ -152,9 +153,9 @@
 		</div>
 
 		<c:if test="${!empty msg }">
-			<div id="msg-container" style="display:none;"><c:out value="${msg}"/></div>
 			<script type="text/javascript">
-				alert(document.getElementById('msg-container').textContent);
+				var msg = '<c:out value="${fn:escapeXml(msg)}"/>';
+				alert(msg);
 			</script>
 		</c:if>
 
