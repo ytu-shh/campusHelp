@@ -23,7 +23,8 @@ jdk1.8+tomcat8.5+mysql5.7
 	</bean>  
 ```
   放入tomcat运行即可  
-## 关注公众号【HelloWeb烟梦网络】留言问题，及时为你解答。  回复项目编号【1】，可获取数据库。
+## 关注公众号【粮安智汇】留言问题，及时为你解答。  回复项目编号【1】，可获取数据库。
+
 ## 效果展示
 ![Image text](https://raw.githubusercontent.com/shh2lm/campusHelp/master/img-folder/1.png)
 ![Image text](https://raw.githubusercontent.com/shh2lm/campusHelp/master/img-folder/2.png)
