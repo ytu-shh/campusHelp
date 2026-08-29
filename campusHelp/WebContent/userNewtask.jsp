@@ -6,6 +6,7 @@
 %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
@@ -38,7 +39,7 @@
 			<ul class="layui-nav layui-layout-right">
 				<li class="layui-nav-item"><a href="javascript:;">
 
-						${nowuser.name } </a>
+						<c:out value="${nowuser.name}"/> </a>
 					<dl class="layui-nav-child">
 						<dd>
 							<a href="userIndex.jsp">个人信息</a>
@@ -182,8 +183,10 @@
 		</div>
 
 		<c:if test="${!empty msg }">
+			<span id="escaped-msg" style="display:none;">${fn:escapeXml(msg)}</span>
 			<script type="text/javascript">
-				alert("${msg }");
+				var msgContainer = document.getElementById('escaped-msg');
+				alert(msgContainer.textContent || msgContainer.innerText);
 			</script>
 		</c:if>
 

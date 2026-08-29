@@ -6,6 +6,7 @@
 %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
@@ -38,7 +39,7 @@
 			<ul class="layui-nav layui-layout-right">
 				<li class="layui-nav-item"><a href="javascript:;">
 
-						${nowuser.name } </a>
+						<c:out value="${nowuser.name}"/> </a>
 					<dl class="layui-nav-child">
 						<dd>
 							<a href="userIndex.jsp">个人信息</a>
@@ -133,7 +134,7 @@
 								</div>
 								<fieldset class="layui-elem-field layui-field-title"
 									style="margin: 20px;margin-bottom: 5px;margin-top: 5px;">
-									<legend><a>${task.taskname }</a></legend>
+									<legend><a><c:out value="${task.taskname}"/></a></legend>
 								</fieldset>
 								<div style="margin-left: 20px;margin-right: 30px;">
 									<span class="layui-badge layui-bg-gray">详细描述</span>
@@ -144,7 +145,7 @@
 									<span class="layui-badge layui-bg-gray">奖励：${task.reward }</span>
 								</div>
 								<div style="margin-left: 30px;margin-right: 30px;margin-top: 10px;margin-bottom: 30px;">
-									<h3>${task.taskcontext }</h3>
+									<h3><c:out value="${task.taskcontext}"/></h3>
 								</div>
 								
 							</c:forEach>
@@ -159,8 +160,10 @@
 		</div>
 
 		<c:if test="${!empty msg }">
+			<span id="escaped-msg" style="display:none;">${fn:escapeXml(msg)}</span>
 			<script type="text/javascript">
-				alert("${msg }");
+				var msgContainer = document.getElementById('escaped-msg');
+				alert(msgContainer.textContent || msgContainer.innerText);
 			</script>
 		</c:if>
 

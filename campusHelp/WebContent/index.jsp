@@ -6,6 +6,7 @@
 %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
@@ -38,7 +39,7 @@
 			</ul>
 			<ul class="layui-nav layui-layout-right">
 				<c:if test="${!empty nowuser }">
-					<li class="layui-nav-item"><a href="javascript:;">${nowuser.name }</a>
+					<li class="layui-nav-item"><a href="javascript:;"><c:out value="${nowuser.name}"/></a>
 						<dl class="layui-nav-child">
 							<dd>
 								<a href="userIndex.jsp">个人信息</a>
@@ -133,7 +134,7 @@
 									<label class="layui-form-label">关键词</label>
 									<div class="layui-input-block">
 										<input type="text" name="words" autocomplete="off"
-											class="layui-input" value="${words }">
+											class="layui-input" value="<c:out value='${words}'/>">
 									</div>
 								</div>
 								<div class="layui-input-inline">
@@ -168,7 +169,7 @@
 										<div class="fly-panel" style="margin-bottom: 0;">
 
 											<div class="fly-panel-title fly-filter">
-												<a class="layui-this">任务</a> <span class="fly-mid"></span> <a>${words }</a>
+												<a class="layui-this">任务</a> <span class="fly-mid"></span> <a><c:out value="${words}"/></a>
 												<span class="fly-mid"></span> <span
 													class="fly-filter-right layui-hide-xs"> <a
 													class="layui-this">最新</a>
@@ -181,10 +182,10 @@
 													<li style="padding-left: 15px;">
 														<h2>
 															<a class="layui-badge">待解决</a> <a
-																onclick="getTask(${task.taskid })">${task.taskname }</a>
+																onclick="getTask(${task.taskid })"><c:out value="${task.taskname}"/></a>
 														</h2>
 														<div class="fly-list-info">
-															<a onclick="getPuser(${task.publishUserId })" link> <cite>${task.publishUserName }</cite></a>
+															<a onclick="getPuser(${task.publishUserId })" link> <cite><c:out value="${task.publishUserName}"/></cite></a>
 															<span><fmt:formatDate value="${task.addtime }"
 																	pattern=" yyyy-MM-dd HH:mm:ss" /></span> <span
 																class="fly-list-kiss layui-hide-xs"> <i
@@ -219,8 +220,10 @@
 		</div>
 
 		<c:if test="${!empty msg }">
+			<span id="escaped-msg" style="display:none;">${fn:escapeXml(msg)}</span>
 			<script type="text/javascript">
-				alert("${msg }");
+				var msgContainer = document.getElementById('escaped-msg');
+				alert(msgContainer.textContent || msgContainer.innerText);
 			</script>
 		</c:if>
 
@@ -279,7 +282,9 @@
 							var optionStr = "";
 							optionStr += "<option value='" + obj[i].schoolid + "'>" + obj[i].name + "</option>";
 							$("#schoolidstr").append(optionStr);
-							$("#schoolidstr").val(${schoolidstr});
+							// 安全地设置选中值
+							var selectedSchoolId = parseInt('${schoolidstr}') || -1;
+							$("#schoolidstr").val(selectedSchoolId);
 							form.render('select', 'formFilter');//加载完毕后更新表单显示（统一样式）
 						}
 					}
