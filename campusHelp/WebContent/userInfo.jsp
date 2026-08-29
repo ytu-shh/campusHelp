@@ -67,11 +67,11 @@
 						<tbody>
 							<tr>
 								<td>用户学号</td>
-								<td>${theuser.studentid }</td>
+								<td><c:out value="${theuser.studentid}"/></td>
 							</tr>
 							<tr>
 								<td>用户姓名</td>
-								<td>${theuser.name }</td>
+								<td><c:out value="${theuser.name}"/></td>
 							</tr>
 							<tr>
 								<td>学校编号</td>
@@ -108,8 +108,9 @@
 	</div>
 
 	<c:if test="${!empty msg }">
+		<div id="msg-container" style="display:none;"><c:out value="${msg}"/></div>
 		<script type="text/javascript">
-			alert("${msg }");
+			alert(document.getElementById('msg-container').textContent);
 		</script>
 	</c:if>
 	<script src="${pageContext.request.contextPath }/layui/layui.all.js"></script>

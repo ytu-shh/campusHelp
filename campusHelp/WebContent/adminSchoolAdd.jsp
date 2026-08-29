@@ -58,7 +58,7 @@
 								<div class="layui-form-item">
 									<label class="layui-form-label">院校名称</label>
 									<div class="layui-input-inline">
-										<input type="text" name="name" value="${theSchool.name }"
+										<input type="text" name="name" value="<c:out value='${theSchool.name}'/>"
 											lay-verify="name" autocomplete="off"
 											class="layui-input">
 									</div>
@@ -81,8 +81,9 @@
 	</div>
 
 	<c:if test="${!empty msg }">
+		<div id="msg-container" style="display:none;"><c:out value="${msg}"/></div>
 		<script type="text/javascript">
-			alert("${msg }");
+			alert(document.getElementById('msg-container').textContent);
 		</script>
 	</c:if>
 	

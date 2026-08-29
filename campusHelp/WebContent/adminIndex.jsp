@@ -40,7 +40,7 @@
 			<ul class="layui-nav layui-layout-right">
 				<li class="layui-nav-item"><a href="javascript:;">
 
-						${nowadmin.account } </a>
+						<c:out value="${nowadmin.account}"/> </a>
 					<dl class="layui-nav-child">
 						<dd>
 							<a href="adminIndex.jsp">个人信息</a>
@@ -136,7 +136,7 @@
 										</tr>
 										<tr>
 											<td>登录账号</td>
-											<td>${nowadmin.account }</td>
+											<td><c:out value="${nowadmin.account}"/></td>
 										</tr>
 										<tr>
 											<td>注册时间</td>
@@ -165,8 +165,9 @@
 		</div>
 
 		<c:if test="${!empty msg }">
+			<div id="msg-container" style="display:none;"><c:out value="${msg}"/></div>
 			<script type="text/javascript">
-				alert("${msg }");
+				alert(document.getElementById('msg-container').textContent);
 			</script>
 		</c:if>
 
