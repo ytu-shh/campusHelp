@@ -38,7 +38,7 @@
 			<ul class="layui-nav layui-layout-right">
 				<li class="layui-nav-item"><a href="javascript:;">
 
-						${nowadmin.account } </a>
+						<c:out value="${nowadmin.account}"/> </a>
 					<dl class="layui-nav-child">
 						<dd>
 							<a href="adminIndex.jsp">个人信息</a>
@@ -126,7 +126,7 @@
 								</div>
 								<fieldset class="layui-elem-field layui-field-title"
 									style="margin: 20px;margin-bottom: 5px;margin-top: 5px;">
-									<legend><a>${school.name }</a></legend>
+									<legend><a><c:out value="${school.name}"/></a></legend>
 								</fieldset>
 								<div style="margin-left: 20px;margin-right: 30px;">
 									<c:if test="${school.state==0 }">
@@ -156,8 +156,9 @@
 		</div>
 
 		<c:if test="${!empty msg }">
+			<div id="msg-container" style="display:none;"><c:out value="${msg}"/></div>
 			<script type="text/javascript">
-				alert("${msg }");
+				alert(document.getElementById('msg-container').textContent);
 			</script>
 		</c:if>
 

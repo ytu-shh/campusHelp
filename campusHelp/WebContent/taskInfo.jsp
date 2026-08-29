@@ -6,6 +6,7 @@
 %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
@@ -67,15 +68,15 @@
 						<tbody>
 							<tr>
 								<td>任务标题</td>
-								<td>${theTask.taskname }</td>
+								<td><c:out value="${theTask.taskname}"/></td>
 							</tr>
 							<tr>
 								<td>详细描述</td>
-								<td>${theTask.taskcontext }</td>
+								<td><c:out value="${theTask.taskcontext}"/></td>
 							</tr>
 							<tr>
 								<td>发布者</td>
-								<td>${theTask.publishUserName }</td>
+								<td><c:out value="${theTask.publishUserName}"/></td>
 							</tr>
 							<tr>
 								<td>奖励</td>
@@ -114,7 +115,8 @@
 
 	<c:if test="${!empty msg }">
 		<script type="text/javascript">
-			alert("${msg }");
+			var msg = '<c:out value="${fn:escapeXml(msg)}"/>';
+			alert(msg);
 		</script>
 	</c:if>
 	<script src="${pageContext.request.contextPath }/layui/layui.all.js"></script>

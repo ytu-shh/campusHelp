@@ -38,7 +38,7 @@
 			<ul class="layui-nav layui-layout-right">
 				<li class="layui-nav-item"><a href="javascript:;">
 
-						${nowuser.name } </a>
+						<c:out value="${nowuser.name}"/> </a>
 					<dl class="layui-nav-child">
 						<dd>
 							<a href="userIndex.jsp">个人信息</a>
@@ -156,15 +156,16 @@
 		</div>
 		
 		<c:if test="${!empty msg }">
+			<div id="msg-container" style="display:none;"><c:out value="${msg}"/></div>
 			<c:if test="${!empty flag }">
 				<script type="text/javascript">
-					alert("${msg }");
+					alert(document.getElementById('msg-container').textContent);
 					window.location.href="common/logout.do"; 
 				</script>
 			</c:if>
 			<c:if test="${empty flag }">
 				<script type="text/javascript">
-					alert("${msg }");
+					alert(document.getElementById('msg-container').textContent);
 					window.location.href="common/logout.do"; 
 				</script>
 			</c:if>
