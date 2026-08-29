@@ -6,6 +6,7 @@
 %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
@@ -38,7 +39,7 @@
 			<ul class="layui-nav layui-layout-right">
 				<li class="layui-nav-item"><a href="javascript:;">
 
-						${nowadmin.account } </a>
+						<c:out value="${nowadmin.account}"/> </a>
 					<dl class="layui-nav-child">
 						<dd>
 							<a href="adminIndex.jsp">个人信息</a>
@@ -131,11 +132,11 @@
 								</div>
 								<fieldset class="layui-elem-field layui-field-title"
 									style="margin: 20px;margin-bottom: 5px;margin-top: 5px;">
-									<legend><a>${task.taskname }</a></legend>
+									<legend><a><c:out value="${task.taskname}"/></a></legend>
 								</fieldset>
 								<div style="margin-left: 20px;margin-right: 30px;">
 									<span class="layui-badge layui-bg-gray">详细描述</span>
-									<span class="layui-badge layui-bg-gray">${task.publishUserName }</span>
+									<span class="layui-badge layui-bg-gray"><c:out value="${task.publishUserName}"/></span>
 									<span class="layui-badge layui-bg-gray">发布时间：<fmt:formatDate value="${task.addtime }" pattern=" yyyy-MM-dd HH:mm:ss" /></span>									
 									<c:if test="${task.state!=0 }">
 										<span class="layui-badge layui-bg-gray">结束时间：<fmt:formatDate value="${task.endtime }" pattern=" yyyy-MM-dd HH:mm:ss" /></span>
@@ -143,12 +144,12 @@
 									<span class="layui-badge layui-bg-gray">奖励：${task.reward }</span>
 								</div>
 								<div style="margin-left: 30px;margin-right: 30px;margin-top: 10px;">
-									<h3>${task.taskcontext }</h3>
+									<h3><c:out value="${task.taskcontext}"/></h3>
 								</div>
 								<div style="margin-left: 30px;margin-right: 30px;margin-top: 10px;margin-bottom: 30px;">
 									<a onclick="getAuser(${task.publishUserId })" class="layui-btn layui-btn-sm layui-btn-primary layui-btn-radius">查看发布者信息</a>
 									<c:if test="${task.state==0 }">
-										<a href="admin/taskclose.do?words=${words }&schoolidstr=${schoolidstr }&tidstr=${task.taskid }" class="layui-btn layui-btn-sm layui-btn-primary layui-btn-radius">取消该任务</a>
+										<a href="admin/taskclose.do?words=${words}&schoolidstr=${schoolidstr}&tidstr=${task.taskid }" class="layui-btn layui-btn-sm layui-btn-primary layui-btn-radius">取消该任务</a>
 									</c:if>
 									<c:if test="${task.state==1 }">
 										<button class="layui-btn layui-btn-sm layui-btn-disabled layui-btn-radius">任务已关闭</button>
@@ -175,7 +176,8 @@
 
 		<c:if test="${!empty msg }">
 			<script type="text/javascript">
-				alert("${msg }");
+				var msg = "${fn:escapeXml(msg)}";
+				alert(msg);
 			</script>
 		</c:if>
 

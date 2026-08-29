@@ -38,7 +38,7 @@
 			<ul class="layui-nav layui-layout-right">
 				<li class="layui-nav-item"><a href="javascript:;">
 
-						${nowuser.name } </a>
+						<c:out value="${nowuser.name}"/> </a>
 					<dl class="layui-nav-child">
 						<dd>
 							<a href="userIndex.jsp">个人信息</a>
@@ -126,7 +126,7 @@
 									<div class="layui-input-inline">
 										<input type="text" name="studentid" lay-verify="studentid"
 											disabled="disabled" autocomplete="off" class="layui-input"
-											value="${nowuser.studentid }">
+											value="<c:out value='${nowuser.studentid}'/>">
 									</div>
 								</div>
 
@@ -135,7 +135,7 @@
 									<div class="layui-input-inline">
 										<input type="text" name="name" lay-verify="name"
 											autocomplete="off" class="layui-input"
-											value="${nowuser.name }">
+											value="<c:out value='${nowuser.name}'/>">
 									</div>
 								</div>
 
@@ -175,15 +175,16 @@
 		</div>
 
 		<c:if test="${!empty msg }">
+			<div id="msg-container" style="display:none;"><c:out value="${msg}"/></div>
 			<c:if test="${!empty flag }">
 				<script type="text/javascript">
-					alert("${msg }");
+					alert(document.getElementById('msg-container').textContent);
 					window.location.href="common/logout.do"; 
 				</script>
 			</c:if>
 			<c:if test="${empty flag }">
 				<script type="text/javascript">
-					alert("${msg }");
+					alert(document.getElementById('msg-container').textContent);
 					window.location.href="common/logout.do"; 
 				</script>
 			</c:if>
@@ -245,7 +246,9 @@
 						var optionStr = "";
 						optionStr += "<option value='" + obj[i].schoolid + "'>" + obj[i].name + "</option>";
 						$("#schoolid").append(optionStr);
-						$("#schoolid").val(${nowuser.schoolid});
+						// 安全地设置学校ID
+						var userSchoolId = parseInt('${nowuser.schoolid}') || 0;
+						$("#schoolid").val(userSchoolId);
 						form.render('select', 'formFilter');
 					}
 				}

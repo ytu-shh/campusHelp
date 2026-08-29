@@ -171,10 +171,11 @@ public class AdminController {
 	@RequestMapping("gettasks.do")
 	public String gettasks(String words, @RequestParam(required = true, defaultValue = "-1") String schoolidstr,
 			Model model) {
+		// 直接使用原始参数，不进行编码（由浏览器自动处理URL编码）
 		model.addAttribute("words", words);
 		model.addAttribute("schoolidstr", schoolidstr);
 		int schoolid = -1;
-		if (!schoolidstr.equals("-1")) {
+		if (!"-1".equals(schoolidstr)) {
 			try {
 				schoolid = Integer.parseInt(schoolidstr);
 			} catch (Exception e) {
@@ -237,6 +238,7 @@ public class AdminController {
 	// 获取用户信息
 	@RequestMapping("getusers.do")
 	public String getusers(String userstr, Model model) {
+		// 直接使用原始参数，不进行编码（由浏览器自动处理URL编码）
 		model.addAttribute("keys", userstr);
 		if (userstr != null) {
 			userstr = "%" + userstr + "%";

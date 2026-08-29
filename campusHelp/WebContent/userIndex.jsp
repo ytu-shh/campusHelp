@@ -38,7 +38,7 @@
 			<ul class="layui-nav layui-layout-right">
 				<li class="layui-nav-item"><a href="javascript:;">
 
-						${nowuser.name } </a>
+						<c:out value="${nowuser.name}"/> </a>
 					<dl class="layui-nav-child">
 						<dd>
 							<a href="userIndex.jsp">个人信息</a>
@@ -138,11 +138,11 @@
 									</tr>
 									<tr>
 										<td>用户学号</td>
-										<td>${nowuser.studentid }</td>
+										<td><c:out value="${nowuser.studentid}"/></td>
 									</tr>
 									<tr>
 										<td>用户姓名</td>
-										<td>${nowuser.name }</td>
+										<td><c:out value="${nowuser.name}"/></td>
 									</tr>
 									<tr>
 										<td>学校编号</td>
@@ -187,8 +187,9 @@
 		</div>
 
 		<c:if test="${!empty msg }">
+			<div id="msg-container" style="display:none;"><c:out value="${msg}"/></div>
 			<script type="text/javascript">
-				alert("${msg }");
+				alert(document.getElementById('msg-container').textContent);
 			</script>
 		</c:if>
 
